@@ -74,6 +74,7 @@ int WinMain(
 	//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;           // Enable Docking
 	io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;         // Enable Multi-Viewport / Platform Windows
+	io.ConfigFlags |= ImGuiConfigFlags_EnablePowerSavingMode;         // Enable power saving mode
 	//io.ConfigViewportsNoAutoMerge = true;
 	//io.ConfigViewportsNoTaskBarIcon = true;
 
@@ -92,6 +93,7 @@ int WinMain(
 	// Setup Platform/Renderer backends
 	ImGui_ImplGlfw_InitForOpenGL(window, true);
 	ImGui_ImplOpenGL3_Init(glsl_version);
+
 
 	// Load Fonts
 	// - If no fonts are loaded, dear imgui will use the default font. You can also load multiple fonts and use ImGui::PushFont()/PopFont() to select them.
@@ -116,6 +118,8 @@ int WinMain(
 	// Main loop
 	while (!glfwWindowShouldClose(window))
 	{
+
+		ImGui_ImplGlfw_WaitForEvent();
 		// Poll and handle events (inputs, window resize, etc.)
 		// You can read the io.WantCaptureMouse, io.WantCaptureKeyboard flags to tell if dear imgui wants to use your inputs.
 		// - When io.WantCaptureMouse is true, do not dispatch mouse input data to your main application.
@@ -145,6 +149,8 @@ int WinMain(
 		ImGui::End();
 
 		ImGui::ShowDemoWindow();
+
+		ImGui::SetMaxWaitBeforeNextFrame(1);
 
 
 		// Rendering
